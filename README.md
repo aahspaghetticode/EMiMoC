@@ -8,11 +8,7 @@ EMiMoC is an app for building gibberish-looking prompts that get an AI model to 
 
 You give it a target string, the exact text you want the model to reply with. EMiMoC gives you back a prompt that looks like noise to a human but leads the model to produce that text word for word.
 
-The plan is for it to support things like:
-
-- **Exact-output targeting.** You set the reply, and the prompt is scored on whether the model returns it verbatim, not on whether it gets close.
-- **Obfuscated encodings.** Runes, odd alphabets, character swaps and other encodings that people can't read at a glance but models can still decode.
-- **Testing against real models.** Run a generated prompt against a model, see what comes back, and adjust until the output matches.
+It works on models you have the weights for. You give it the model, its system prompt and the output you want, and it searches the model's own tokens for a prompt that produces that output exactly.
 
 ## Usage
 
@@ -59,10 +55,6 @@ Useful options:
 | `--json` | off | Print the result as JSON, including token ids |
 
 The exit code is 0 when the verified output matches and 1 when it doesn't. Matches are exact under greedy decoding (temperature 0) for this model, system prompt and chat template. With sampling, or a different system prompt, the result may change.
-
-### Closed models (API only)
-
-For models you can only reach through an API, `emimoc_api.py` runs a black-box search. It tries a fixed set of obfuscated encodings (runes, upside-down text, ROT13, base64 and others) until a reply matches. Run `python emimoc_api.py --help` for details.
 
 ## Where the name comes from
 
