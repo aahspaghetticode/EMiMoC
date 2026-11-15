@@ -1,0 +1,4 @@
+torch>=2.1
+transformers>=4.45
+safetensors
+gguf  # only needed for .gguf model files
